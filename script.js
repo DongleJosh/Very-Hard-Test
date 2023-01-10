@@ -38,11 +38,11 @@ window.onload = function () {
 
     'Why am I still trying to succeed in life': ['Trying not to be homeless', 'Fear of dying alone', 'My parents are telling me to', 1],
 
-    'Is Mikey cool?': ['Yes', 'No', 0],
+    'What is the best way to avoid responsibility?': ['Blame others', 'Ignore the problem and hope it goes away', 'Crying in the fetal position', 'All of the above', 3],
 
-    'Placeholder': ['A', 'B', 'C', 'D', 2],
+    'Placeholder': ['A', 'Correct Answer', 'C', 'D', 1],
 
-    '2nd Placeholder': ['A', 'B', 'C', 'D', 3],
+    '2nd Placeholder': ['A', 'B', 'Correct Answer', 'D', 2],
 
   };
 
