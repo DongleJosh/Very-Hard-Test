@@ -3,8 +3,10 @@ body, html {
     height: 100%;
     margin: 0;
     padding: 0;
+    background: url(https://media.tenor.com/AUteKr8hSX0AAAAC/i-said-hey-he-man.gif) center center fixed;
     font-family: 'Comic Sans ms', sans-serif;
-    background-color: #333333
+    background-color: #333333;
+    
   }
   
   .wrapper {
@@ -84,4 +86,9 @@ body, html {
   
   .false {
     background-color: #DC4437;
+  }
+
+  .time {
+    padding-top: 20px;
+    padding-bottom: 20px;
   }

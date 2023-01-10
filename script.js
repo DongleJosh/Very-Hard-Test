@@ -1,37 +1,62 @@
 
 window.onload = function () {
 
-  var questionArea = document.getElementsByClassName('questions')[0],
-    answerArea = document.getElementsByClassName('answers')[0],
-    checker = document.getElementsByClassName('checker')[0],
-    current = 0,
+  let numberCorrect = 0;
 
-    // An object that holds all the questions + possible answers.
-    // In the array --> last digit gives the right answer position
-    allQuestions = {
-      'What is NOT a style of pizza?': ['Altoona', 'New York', 'Neopolitan', 'Greek', 'Gatekeeping Pizza is Wrong', 4],
+  let start = Date.now();
+  const display = document.querySelector('#time');
+  const duration = 60 * 5;
 
-      'Will I pass this course': ['Yes', 'Maybe', 'No', 1],
 
-      'Why am I still trying to succeed in life': ['Trying not to be homeless', 'Fear of dying alone', 'My parents are telling me to', 1]
-    };
+  const timer = (timeDifference) => {
+    timeDifference = duration - (((Date.now() - start) / 1000) | 0);
 
-  function loadQuestion(curr) {
-    // This function loads all the question into the questionArea
-    // It grabs the current question based on the 'current'-variable
+    minutes = (timeDifference / 60) | 0;
+    seconds = (timeDifference % 60) | 0;
 
-    var question = Object.keys(allQuestions)[curr];
+    minutes = minutes < 10 ? "0" + minutes : minutes;
+    seconds = seconds < 10 ? "0" + seconds : seconds;
+
+    display.textContent = minutes + ":" + seconds;
+
+    if (timeDifference <= 0) {
+      start = Date.now() + 1000;
+    }
+  }
+
+  setInterval(timer, 1000);
+
+  const questionArea = document.getElementsByClassName('questions')[0];
+  const answerArea = document.getElementsByClassName('answers')[0];
+  const checker = document.getElementsByClassName('checker')[0];
+  let current = 0;
+
+  allQuestions = {
+    'What is NOT a style of pizza?': ['Altoona', 'New York', 'Neopolitan', 'Greek', 'Gatekeeping Pizza is Wrong', 4],
+
+    'Will I pass this course': ['Yes', 'Maybe', 'No', 1],
+
+    'Why am I still trying to succeed in life': ['Trying not to be homeless', 'Fear of dying alone', 'My parents are telling me to', 1],
+
+    'Is Mikey cool?': ['Yes', 'No', 0],
+
+    'Placeholder': ['A', 'B', 'C', 'D', 2],
+
+    '2nd Placeholder': ['A', 'B', 'C', 'D', 3],
+
+  };
+
+  const loadQuestion = (curr) => {
+
+    const question = Object.keys(allQuestions)[curr];
 
     questionArea.innerHTML = '';
     questionArea.innerHTML = question;
   }
 
-  function loadAnswers(curr) {
-    // This function loads all the possible answers of the given question
-    // It grabs the needed answer-array with the help of the current-variable
-    // Every answer is added with an 'onclick'-function
+  const loadAnswers = (curr) => {
 
-    var answers = allQuestions[Object.keys(allQuestions)[curr]];
+    const answers = allQuestions[Object.keys(allQuestions)[curr]];
 
     answerArea.innerHTML = '';
 
@@ -47,11 +72,7 @@ window.onload = function () {
     }
   }
 
-  function checkAnswer(i, arr) {
-    // This is the function that will run, when clicked on one of the answers
-    // Check if givenAnswer is sams as the correct one
-    // After this, check if it's the last question:
-    // If it is: empty the answerArea and let them know it's done.
+  const checkAnswer = (i, arr) => {
 
     return function () {
       var givenAnswer = i,
@@ -59,6 +80,8 @@ window.onload = function () {
 
       if (givenAnswer === correctAnswer) {
         addChecker(true);
+        numberCorrect += 1;
+        document.getElementById("numberCorrectAnswers").innerHTML = numberCorrect
       } else {
         addChecker(false);
       }
@@ -69,16 +92,14 @@ window.onload = function () {
         loadQuestion(current);
         loadAnswers(current);
       } else {
-        questionArea.innerHTML = 'EZ PZ Lemon Squeezy';
+        questionArea.innerHTML = '🌭 You are so smart 🌭';
         answerArea.innerHTML = '';
       }
 
     };
   }
 
-  function addChecker(bool) {
-    // This function adds a div element to the page
-    // Used to see if it was correct or false
+  const addChecker = (bool) => {
 
     var createDiv = document.createElement('div'),
       txt = document.createTextNode(current + 1);
@@ -95,8 +116,6 @@ window.onload = function () {
     }
   }
 
-
-  // Start the quiz right away
   loadQuestion(current);
   loadAnswers(current);
 
